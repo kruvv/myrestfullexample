@@ -27,6 +27,6 @@ public interface LoanService {
 
 	List<Loan> getAll();
 
-	List<Loan> getByPersonId(int personId);
+	List<Loan> getByPerson(int personId);
 
 }

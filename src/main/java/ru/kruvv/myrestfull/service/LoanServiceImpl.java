@@ -21,15 +21,18 @@ public class LoanServiceImpl implements LoanService {
 		this.repository = repository;
 	}
 
+	@Override
 	public Loan apply(Loan loan) {
 		return this.repository.save(loan);
 	}
 
+	@Override
 	public List<Loan> getAll() {
 		return Lists.newArrayList(this.repository.findAll());
 	}
 
-	public List<Loan> getByPersonId(int personId) {
+	@Override
+	public List<Loan> getByPerson(int personId) {
 		return this.repository.findByPerson(new Person(personId));
 	}
 

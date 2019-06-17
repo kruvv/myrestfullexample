@@ -1,6 +1,7 @@
 package ru.kruvv.myrestfull.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ru.kruvv.myrestfull.domain.Person;
 import ru.kruvv.myrestfull.repository.BlackListRepository;
@@ -12,6 +13,7 @@ import ru.kruvv.myrestfull.repository.BlackListRepository;
  *
  */
 
+@Service
 public class BlackListServiceImpl implements BlackListService {
 
 	private final BlackListRepository repository;
@@ -21,6 +23,7 @@ public class BlackListServiceImpl implements BlackListService {
 		this.repository = repository;
 	}
 
+	@Override
 	public boolean isBlackListPerson(int personId) {
 		return this.repository.findByPerson(new Person(personId)) != null;
 	}

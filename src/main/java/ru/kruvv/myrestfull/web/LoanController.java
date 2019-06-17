@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import ru.kruvv.myrestfull.domain.Loan;
 import ru.kruvv.myrestfull.service.BlackListService;
@@ -15,6 +16,7 @@ import ru.kruvv.myrestfull.web.forms.Error;
 import ru.kruvv.myrestfull.web.forms.Result;
 import ru.kruvv.myrestfull.web.forms.Success;
 
+@RestController
 public class LoanController {
 	private final LoanService loans;
 
@@ -30,7 +32,7 @@ public class LoanController {
 	public Result aplly(@RequestBody Loan loan) {
 		final Result result;
 		if (!this.blacklists.isBlackListPerson(loan.getPerson().getId())) {
-			result = new Success<Loan>(this.loans.apply(loan));
+			result = new Success<>(this.loans.apply(loan));
 		} else {
 			result = new Error(String.format("User %s in blacklist", loan.getPerson().getId()));
 		}
@@ -44,7 +46,7 @@ public class LoanController {
 
 	@GetMapping("/{personId}")
 	public List<Loan> findByPersonId(@PathVariable int personId) {
-		return this.loans.getByPersonId(personId);
+		return this.loans.getByPerson(personId);
 	}
 
 }
